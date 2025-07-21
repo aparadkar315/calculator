@@ -1,0 +1,26 @@
+.calculator {
+display: flex;
+height: 800px;
+justify-content: center;
+}
+
+.container {
+    display: inline-block;
+    height: 270px;
+    /*margin: auto;*/
+}
+
+button {
+    height: 50px;
+    width: 50px;
+}
+
+.display {
+    display: inline-block;
+    border: solid black;
+    height: 50px;
+    width: 260px;
+}
+button.clear {
+    width: 266px;
+}
