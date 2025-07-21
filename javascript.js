@@ -34,3 +34,14 @@ function operate(num1, num2, operator){
     }
     return answer;
 }
+
+const dis = document.querySelector(".display");
+dis.textContent = "";
+
+function display(e) {
+const num = e.target.textContent;
+dis.textContent += num;    
+}
+
+const digit = document.querySelector(".digit");
+digit.addEventListener("click",display)
