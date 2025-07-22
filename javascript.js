@@ -14,9 +14,8 @@ function divide(num1, num2){
     return num1 / num2;
 }
 
-let number1, number2, operator;
 
-function operate(num1, num2, operator){
+function selectOperation(num1, num2, operator){
     let answer = 0;
     switch(operator) {
         case "+":
@@ -37,11 +36,37 @@ function operate(num1, num2, operator){
 
 const dis = document.querySelector(".display");
 dis.textContent = "";
+let prevInput;
+let currentInput;
+let operation;
 
-function display(e) {
-const num = e.target.textContent;
-dis.textContent += num;    
+function displayNum(e) {
+    const dig = e.target.textContent;
+    dis.textContent += dig;
 }
 
+function operatorClicked(e) {
+    prevInput = dis.textContent;
+    dis.textContent = "";
+    operation = e.target.textContent;
+}
+
+function calculate(){
+    currentInput = dis.textContent;
+    const answer = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
+    dis.textContent = answer;
+}
+
+//eventListener for digits
 const digit = document.querySelector(".digit");
-digit.addEventListener("click",display)
+digit.addEventListener("click",displayNum);
+
+//eventListener for operators
+const ops = document.querySelectorAll(".operator");
+ops.forEach((op) => {
+    op.addEventListener("click",operatorClicked)
+});
+
+//eventListener for equal to
+const calc = document.querySelector(".equals");
+calc.addEventListener("click",calculate);
