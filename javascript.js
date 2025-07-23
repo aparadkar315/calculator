@@ -37,24 +37,35 @@ function selectOperation(num1, num2, operator){
 const dis = document.querySelector(".display");
 dis.textContent = "";
 let prevInput;
-let currentInput;
-let operation;
-
+let currentInput;//stores the current input of a single or multiple digits
+let operation ="";
+let dig = "";//variable to accept a digit each time a button is pressed
 function displayNum(e) {
-    const dig = e.target.textContent;
-    dis.textContent += dig;
-}
+    dig += e.target.textContent;
+    dis.textContent = dig;
+    currentInput = dis.textContent;
+    }
 
 function operatorClicked(e) {
+    
+    if(operation != ""){
+        dis.textContent  = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
+        prevInput = dis.textContent;
+        operation = e.target.textContent;
+        dig = "";
+    }else{
+    operation = e.target.textContent;
     prevInput = dis.textContent;
     dis.textContent = "";
-    operation = e.target.textContent;
+    dig = "";
+    }
+    
 }
 
 function calculate(){
-    currentInput = dis.textContent;
     const answer = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
     dis.textContent = answer;
+    operation ="";
 }
 
 //eventListener for digits
