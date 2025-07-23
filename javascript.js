@@ -37,10 +37,11 @@ function selectOperation(num1, num2, operator){
 
 const dis = document.querySelector(".display");
 dis.textContent = "";
-let prevInput;
-let currentInput;//stores the current input of a single or multiple digits
+let prevInput = "";
+let currentInput = "";//stores the current input of a single or multiple digits
 let operation ="";
 let dig = "";//variable to accept a digit each time a button is pressed
+
 function displayNum(e) {
     currentInput = "";
     dig += e.target.textContent;
@@ -50,12 +51,12 @@ function displayNum(e) {
 
 function operatorClicked(e) {
     
-    if(operation != ""){
+    if (operation != "") {
         dis.textContent  = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
         prevInput = dis.textContent;
         operation = e.target.textContent;
         dig = "";
-    }else{
+    } else {
     operation = e.target.textContent;
     prevInput = dis.textContent;
     dis.textContent = "";
@@ -64,7 +65,7 @@ function operatorClicked(e) {
     
 }
 
-function calculate(){
+function calculate() {
     if(dig === "" || operation === ""){
         dis.textContent = dis.textContent;
     }else{
@@ -73,6 +74,14 @@ function calculate(){
     operation = "";
     }
     
+}
+
+function clearDisplay() {
+    dis.textContent = "";
+    prevInput = "";
+    currentInput = "";
+    operation = "";
+    dig = "";
 }
 
 //eventListener for digits
@@ -88,3 +97,7 @@ ops.forEach((op) => {
 //eventListener for equal to
 const calc = document.querySelector(".equals");
 calc.addEventListener("click",calculate);
+
+//eventListener for clear
+const clear = document.querySelector(".clear");
+clear.addEventListener("click", clearDisplay);
