@@ -31,7 +31,8 @@ function selectOperation(num1, num2, operator){
             answer = divide(num1, num2);
             break;
     }
-    return answer;
+    const roundedAnswer = parseFloat(answer.toFixed(2));
+    return roundedAnswer;
 }
 
 const dis = document.querySelector(".display");
@@ -41,6 +42,7 @@ let currentInput;//stores the current input of a single or multiple digits
 let operation ="";
 let dig = "";//variable to accept a digit each time a button is pressed
 function displayNum(e) {
+    currentInput = "";
     dig += e.target.textContent;
     dis.textContent = dig;
     currentInput = dis.textContent;
@@ -63,9 +65,14 @@ function operatorClicked(e) {
 }
 
 function calculate(){
+    if(dig === "" || operation === ""){
+        dis.textContent = dis.textContent;
+    }else{
     const answer = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
     dis.textContent = answer;
-    operation ="";
+    operation = "";
+    }
+    
 }
 
 //eventListener for digits
