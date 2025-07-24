@@ -28,6 +28,10 @@ function selectOperation(num1, num2, operator){
             answer = multiply(num1, num2);
             break;
         case "/":
+            if(num2 === 0){
+            const errmsg = "Sorry! Can't divide by '0'";
+            return errmsg;
+            }
             answer = divide(num1, num2);
             break;
     }
@@ -51,28 +55,40 @@ function displayNum(e) {
 
 function operatorClicked(e) {
     
-    if (operation != "") {
-        dis.textContent  = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
-        prevInput = dis.textContent;
+   
+        if (operation != "") {
+            if(dis.textContent === ""){
+                dis.textContent = dis.textContent;
+                operation = e.target.textContent;
+            }else{
+                dis.textContent  = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
+                prevInput = dis.textContent;
+                operation = e.target.textContent;
+                if (operation === "+" || operation === "-") {
+                    currentInput = 0;
+                } else {
+                    currentInput = 1;
+                }
+                dig = "";
+            }
+        } else {
         operation = e.target.textContent;
+        prevInput = dis.textContent;
+        dis.textContent = "";
         dig = "";
-    } else {
-    operation = e.target.textContent;
-    prevInput = dis.textContent;
-    dis.textContent = "";
-    dig = "";
+        }
     }
     
-}
+
 
 function calculate() {
-    if(dig === "" || operation === ""){
+    if (dig === "" || operation === ""){
         dis.textContent = dis.textContent;
-    }else{
-    const answer = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
-    dis.textContent = answer;
-    operation = "";
-    }
+    } else {
+        const answer = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
+        dis.textContent = answer;
+        operation = "";
+        }
     
 }
 
