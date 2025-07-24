@@ -47,6 +47,7 @@ let operation ="";
 let dig = "";//variable to accept a digit each time a button is pressed
 
 function displayNum(e) {
+    dis.textContent = "";
     currentInput = "";
     dig += e.target.textContent;
     dis.textContent = dig;
@@ -88,6 +89,7 @@ function calculate() {
         const answer = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
         dis.textContent = answer;
         operation = "";
+        dig = "";
         }
     
 }
