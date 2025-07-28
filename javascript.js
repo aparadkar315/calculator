@@ -35,8 +35,7 @@ function selectOperation(num1, num2, operator){
             answer = divide(num1, num2);
             break;
     }
-    const roundedAnswer = parseFloat(answer.toFixed(2));
-    return roundedAnswer;
+    return parseFloat(answer.toFixed(2));
 }
 
 const dis = document.querySelector(".display");
@@ -49,10 +48,26 @@ let dig = "";//variable to accept a digit each time a button is pressed
 function displayNum(e) {
     dis.textContent = "";
     currentInput = "";
-    dig += e.target.textContent;
+    if (!dig.includes('.')) {
+            if (e.target.textContent === "Backspace") {
+            dig = dig.slice(0,dig.length - 1);
+            } else {
+            dig += e.target.textContent;
+            }
+    } else {
+            if (e.target.textContent != ".") {
+            if (e.target.textContent === "Backspace") {
+            dig = dig.slice(0,dig.length - 1);
+            } else {
+            dig += e.target.textContent;
+            }
+            }
+    }
     dis.textContent = dig;
     currentInput = dis.textContent;
     }
+
+
 
 function operatorClicked(e) {
     
@@ -62,7 +77,7 @@ function operatorClicked(e) {
                 dis.textContent = dis.textContent;
                 operation = e.target.textContent;
             }else{
-                dis.textContent  = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
+                dis.textContent  = selectOperation(parseFloat(prevInput), parseFloat(currentInput), operation);
                 prevInput = dis.textContent;
                 operation = e.target.textContent;
                 if (operation === "+" || operation === "-") {
@@ -86,7 +101,7 @@ function calculate() {
     if (dig === "" || operation === ""){
         dis.textContent = dis.textContent;
     } else {
-        const answer = selectOperation(parseInt(prevInput), parseInt(currentInput), operation);
+        const answer = selectOperation(parseFloat(prevInput), parseFloat(currentInput), operation);
         dis.textContent = answer;
         operation = "";
         dig = "";
@@ -106,10 +121,11 @@ function clearDisplay() {
 const digit = document.querySelector(".digit");
 digit.addEventListener("click",displayNum);
 
+
 //eventListener for operators
 const ops = document.querySelectorAll(".operator");
 ops.forEach((op) => {
-    op.addEventListener("click",operatorClicked)
+op.addEventListener("click",operatorClicked)
 });
 
 //eventListener for equal to
@@ -119,3 +135,11 @@ calc.addEventListener("click",calculate);
 //eventListener for clear
 const clear = document.querySelector(".clear");
 clear.addEventListener("click", clearDisplay);
+
+const dot = document.querySelector(".dot");
+dot.addEventListener("click", displayNum);
+
+const back = document.querySelector(".back");
+back.addEventListener("click", displayNum);
+
+dis.setAttribute("style", "fontSize: 20px;");
